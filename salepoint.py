@@ -95,7 +95,7 @@ st.markdown(title, unsafe_allow_html=True)
 
 welcome = """<style>
 h4 {
-color: black;
+color: white;
 font-size: 16px;
 margin-top: 2rem;
 text-align: center;
