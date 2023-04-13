@@ -80,11 +80,15 @@ def get_table_download_link(df):
     in:  dataframe
     out: href string
     """
-    csv = df.to_csv(index=False)
+    csv = df.to_csv(index=False, encoding='utf-8')
     b64 = base64.b64encode(
         csv.encode()
     ).decode()  # some strings <-> bytes conversions necessary here
     #button to download the csv file
+    # DATES appear as ### in the csv file
+
+    
+
     return st.download_button(label="Download CSV", data=csv, file_name='myfilename.csv', mime='text/csv')
         
     #return f'<a href="data:file/csv;base64,{b64}" download="myfilename.csv">Download csv file</a>'
