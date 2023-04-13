@@ -44,6 +44,24 @@ def verify_file(file):
     return response.json()
 
 
+
+fields = ["created_date",
+    "date",
+    "delivery_date",
+    "due_date","subtotal", "tax", "total"]
+
+def get_fields(data):
+    #get the fields from the json
+    pruned_data = {}
+    
+    for field in fields:
+        if field in data:
+            pruned_data[field] = data[field]
+    if "vendor" in data:
+        pruned_data["vendor"] = data["vendor"]["name"]
+
+    return pruned_data
+
 def generate_csv(data):
     #convert json to csv
     keys = []
@@ -128,7 +146,8 @@ st.markdown(welcome, unsafe_allow_html=True)
 file = st.file_uploader("Upload Invoice", type=["jpg", "png", "jpeg", "pdf"])
 if file:
     data = verify_file(file)
-    csv = generate_csv(data)
+    pruned_data = get_fields(data)
+    csv = generate_csv(pruned_data)
     #download the csv file
     get_table_download_link(csv)
     #st.markdown(get_table_download_link(csv), unsafe_allow_html=True)
