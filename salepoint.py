@@ -97,9 +97,9 @@ def get_table_download_link(df):
 
     #create a download button
     return st.download_button(
-    label="Download data as CSV",
+    label="Download",
     data=open("invoice.xlsx", "rb").read(),
-    file_name='large_df.csv',
+    file_name='invoice.xlsx',
     mime='text/csv',
     )
 
@@ -108,8 +108,26 @@ def get_table_download_link(df):
     
     #return st.markdown(linko, unsafe_allow_html=True)
 
+css = """
+.css-5uatcg {
+    display: inline-flex;
+    -webkit-box-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    justify-content: center;
+    font-weight: 400;
+    padding: 0.25rem 0.75rem;
+    border-radius: 1rem;
+    margin: 0px;
+    line-height: 1.6;
+    color: inherit;
+    width: auto;
+    user-select: none;
+    background-image: linear-gradient(45deg, #23d0fe, #9d3afe);
 
+"""
 
+st.markdown(css, unsafe_allow_html=True)
 
 
 #hide the hamburger menu

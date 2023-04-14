@@ -1,3 +1,4 @@
 [theme]
-base="dark"
+base="light"
 primaryColor="#8f37ea"
+secondaryColor="#c4fcff"
