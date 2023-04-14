@@ -149,6 +149,10 @@ margin-top: 5rem;
     user-select: none;
     background-image: linear-gradient(45deg, #23d0fe, #9d3afe);
 }
+
+.css-czsf3t {
+    border-radius: 1rem;
+}
 </style>
 <h1>Salepoint</h1>"""
 
