@@ -127,7 +127,7 @@ css = """
 
 """
 
-st.markdown(css, unsafe_allow_html=True)
+st.markdown("""<style>{}</style>""".format(css), unsafe_allow_html=True)
 
 
 #hide the hamburger menu
