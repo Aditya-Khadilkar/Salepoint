@@ -76,24 +76,39 @@ def generate_csv(data):
     return df
 
 def get_table_download_link(df):
-    """Generates a link allowing the data in a given panda dataframe to be downloaded
-    in:  dataframe
-    out: href string
+    """Generates a link allowing the data in a given panda dataframe to be downloaded as excel file
     """
-    csv = df.to_csv(index=False, encoding='utf-8')
-    b64 = base64.b64encode(
-        csv.encode()
-    ).decode()  # some strings <-> bytes conversions necessary here
-    #button to download the csv file
-    # DATES appear as ### in the csv file
+    writer = pd.ExcelWriter(
+    "invoice.xlsx",
+    engine="xlsxwriter",
+    datetime_format="mmm d yyyy hh:mm:ss",
+    date_format="mmmm dd yyyy",
+    )
 
+    # Convert the dataframe to an XlsxWriter Excel object.
+    df.to_excel(writer, sheet_name="Sheet1")
+
+    # Get the xlsxwriter workbook and worksheet objects. in order to set the column
+    # widths, to make the dates clearer.
+    workbook = writer.book
+    worksheet = writer.sheets["Sheet1"]
+    # Close the Pandas Excel writer and output the Excel file.
+    writer.close()
+
+    #create a download link
+    linko = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{base64.b64encode(open("invoice.xlsx", "rb").read()).decode()}" download="invoice.xlsx">Download csv file</a>'
     
-
-    return st.download_button(label="Download CSV", data=csv, file_name='myfilename.csv', mime='text/csv')
-        
-    #return f'<a href="data:file/csv;base64,{b64}" download="myfilename.csv">Download csv file</a>'
+    return st.markdown(linko, unsafe_allow_html=True)
 
 
+#hide the hamburger menu
+hide_streamlit_style = """
+            <style> 
+            #MainMenu {visibility: hidden;}
+            footer {visibility: hidden;}
+            </style>
+            """
+st.markdown(hide_streamlit_style, unsafe_allow_html=True)
 
 #title is Salepoint. text gradient, center aligned
 title = """<style>
@@ -124,7 +139,7 @@ text-align: center;
 }
 
 </style>
-<h4>Welcome Hornstra Farms</h4>"""
+<h4>Welcome Hornstra!</h4>"""
 
 
 logo = """<style>
