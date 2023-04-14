@@ -86,7 +86,7 @@ def get_table_download_link(df):
     )
 
     # Convert the dataframe to an XlsxWriter Excel object.
-    df.to_excel(writer, sheet_name="Sheet1")
+    df.to_excel(writer, sheet_name="Sheet1", index=False)
 
     # Get the xlsxwriter workbook and worksheet objects. in order to set the column
     # widths, to make the dates clearer.
@@ -95,10 +95,21 @@ def get_table_download_link(df):
     # Close the Pandas Excel writer and output the Excel file.
     writer.close()
 
-    #create a download link
-    linko = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{base64.b64encode(open("invoice.xlsx", "rb").read()).decode()}" download="invoice.xlsx">Download csv file</a>'
+    #create a download button
+    return st.download_button(
+    label="Download data as CSV",
+    data=open("invoice.xlsx", "rb").read(),
+    file_name='large_df.csv',
+    mime='text/csv',
+    )
+
+
+    #linko = f'<a href="data:application/vnd.openxmlformats-officedocument.spreadsheetml.sheet;base64,{base64.b64encode(open("invoice.xlsx", "rb").read()).decode()}" download="invoice.xlsx">Download csv file</a>'
     
-    return st.markdown(linko, unsafe_allow_html=True)
+    #return st.markdown(linko, unsafe_allow_html=True)
+
+
+
 
 
 #hide the hamburger menu
